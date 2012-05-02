@@ -2,6 +2,7 @@
 #define TDCLIENT_H
 
 #include <QThread>
+#include <QtNetwork/QTcpSocket>
 
 class TDClient : public QThread
 {
@@ -13,6 +14,9 @@ signals:
 
 public slots:
     void run();
+
+private:
+    int m_socketDescriptor;
 };
 
 #endif // TDCLIENT_H

@@ -2,6 +2,8 @@
 #define TOWERDEFENSESERVEUR_H
 
 #include <QMainWindow>
+#include <QMessageBox>
+#include "tdserveur.h"
 
 namespace Ui {
 class TowerDefenseServeur;
@@ -17,6 +19,7 @@ public:
     
 private:
     Ui::TowerDefenseServeur *ui;
+    TDServeur *Serveur;
 };
 
 #endif // TOWERDEFENSESERVEUR_H

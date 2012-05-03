@@ -9,8 +9,10 @@ TEMPLATE = app
 SOURCES += main.cpp \
     towerdefenseserveur.cpp \
     tdserveur.cpp \
-    tdclient.cpp
+    tdclient.cpp \
+    tdpartie.cpp
 HEADERS += towerdefenseserveur.h \
     tdserveur.h \
-    tdclient.h
+    tdclient.h \
+    tdpartie.h
 FORMS += towerdefenseserveur.ui

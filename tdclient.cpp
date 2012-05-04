@@ -17,23 +17,19 @@ void TDClient::run()
         m_socket.waitForReadyRead();
         bChaine = m_socket.read(m_socket.bytesAvailable());
 
-        if (bChaine.length() >= 2)
+        if (bChaine.left(1) == "1" && bChaine.length() >= 2)
         {
             QStringList parametre = QString(bChaine.mid(1, bChaine.length() - 1)).split("/");
             m_nomClient = parametre.at(0);
-
-            if (bChaine.left(1) == "1")
+            //Création d'une nouvelle partie
+            emit(siCreerPartie(m_idClient, m_nomClient, parametre.at(1)));
+        }
+        else
+        {
+            if (bChaine.left(1) == "2")
             {
-                //Création d'une nouvelle partie
-                emit(siCreerPartie(m_idClient, m_nomClient, parametre.at(1)));
-            }
-            else
-            {
-                if (bChaine.left(1) == "2")
-                {
-                    //Obtenir la liste des parties créées une partie
-                    emit(siObtenirParties(m_idClient));
-                }
+                //Obtenir la liste des parties créées une partie
+                emit(siObtenirParties(m_idClient));
             }
         }
     }

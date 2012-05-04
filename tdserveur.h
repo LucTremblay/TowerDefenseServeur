@@ -11,9 +11,7 @@ public:
     explicit TDServeur();
 
 signals:
-    void siCreerPartie(int idClient, QString nomClient, QString nomPartie);
     void siPartieCreee(int idClient);
-    void siObtenirParties(int idClient);
     void siListeParties(int idClient, QString parties);
 
 public slots:

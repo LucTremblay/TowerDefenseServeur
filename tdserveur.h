@@ -13,13 +13,17 @@ public:
 signals:
     void siPartieCreee(int idClient);
     void siListeParties(int idClient, QString parties);
+    void siTickClient(int indexPartie);
 
 public slots:
 
 private slots:
     void incomingConnection(int socketDescriptor);
-    void slCreerPartie(int idClient, QString nomClient, QString nomPartie);
+    void slCreerPartie(int idClient, QString nomClient, QString nomPartie,
+                       int mntArgent, int qteVie, QString nomMap);
     void slObtenirParties(int idClient);
+    void slTickPartie(int indexPartie);
+
 
 private:
     int m_idClienGen;

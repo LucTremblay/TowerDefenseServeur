@@ -20,6 +20,18 @@ void TDClient::run()
 
             switch (parametre.at(0).toInt())//premier parametre = code de l'instruction
             {
+                case 4://Nouvelle tour
+                                                               //        caseX
+                    emit(siTourCreee(m_idClient, m_indexPartie, parametre.at(1).toInt(),
+                                     //        caseY                typeTour
+                                     parametre.at(2).toInt(), parametre.at(3).toInt()));
+                    break;
+
+                case 5://Vie Perdu
+
+                    emit(siViePerdu(m_idClient, m_indexPartie));
+                    break;
+
                 case 1://Création d'une nouvelle partie
                                                  //   nomJoueur        nomPartie
                     emit(siCreerPartie(m_idClient, parametre.at(1), parametre.at(2),
@@ -35,8 +47,8 @@ void TDClient::run()
                     break;
 
                 case 3://Joindre une partie
-                                                   //  indexPartie
-                    emit(siJoindrePartie(m_idClient, parametre.at(1)));
+                                                    //  nomJoueur           indexPartie
+                    emit(siJoindrePartie(m_idClient, parametre.at(1), parametre.at(2).toInt()));
                     break;
 
 
@@ -58,14 +70,55 @@ void TDClient::slPartieCreee(int idClient)
 
 void TDClient::slListePartie(int idClient, QString parties)
 {
-    parties = parties.remove(parties.length() - 1);
     if (idClient == m_idClient)
     {
+        parties = parties.remove(parties.length() - 1);
         m_socket.write(parties.toAscii());
+    }
+    QTcpSocket m_socket;
+}
+
+void TDClient::slPartieJoint(int idClient, bool partiePleine)
+{
+    if (idClient == m_idClient)
+    {
+        if (partiePleine)
+            m_socket.write("@");
+        else
+            m_socket.write("#");
     }
 }
 
-void TDClient::slTickClient(int idJoueurDroit, int idJoueurGauche)
+void TDClient::slTickClient(int indexPartie, int temps)
 {
+    if (indexPartie == m_indexPartie)
+    {
+        QString strTrame = QString("1") + "#" + temps;
+        m_socket.write(strTrame.toAscii());
+    }
+}
 
+void TDClient::slFrameClient(int indexPartie)
+{
+    if (indexPartie == m_indexPartie)
+    {
+        m_socket.write(QString("2").toAscii());
+    }
+}
+
+void TDClient::slAviserTourCreee(int idClient, int caseX, int caseY, int typeTour)
+{
+    if(idClient = m_idClient)
+    {
+        QString strTrame = QString("3") + QString(caseX) + QString(caseY) + QString(typeTour);
+        m_socket.write(strTrame.toAscii());
+    }
+}
+
+void TDClient::slAviserViePerdu(int idClient)
+{
+    if(idClient = m_idClient)
+    {
+        m_socket.write(QString("4").toAscii());
+    }
 }

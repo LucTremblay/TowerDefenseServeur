@@ -13,7 +13,11 @@ public:
 signals:
     void siPartieCreee(int idClient);
     void siListeParties(int idClient, QString parties);
-    void siTickClient(int indexPartie);
+    void siPartieJoint(int idClient, bool partiePleine);
+    void siTickClient(int indexPartie, int temps);
+    void siFrameClient(int indexPartie);
+    void siAviserViePerdu(int idClient);
+    void siAviserTourCreee(int idClient, int caseX, int caseY, int typeTour);
 
 public slots:
 
@@ -22,7 +26,11 @@ private slots:
     void slCreerPartie(int idClient, QString nomClient, QString nomPartie,
                        int mntArgent, int qteVie, QString nomMap);
     void slObtenirParties(int idClient);
-    void slTickPartie(int indexPartie);
+    void slJoindrePartie(int idJoueur, QString nomJoueur, int indexPartie);
+    void slTickPartie(int indexPartie, int temps);
+    void slFramePartie(int indexPartie);
+    void slViePerdu(int idClient, int indexPartie);
+    void slTourCreee(int idClient, int indexPartie, int caseX, int caseY, int typeTour);
 
 
 private:
